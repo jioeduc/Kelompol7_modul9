@@ -16,6 +16,16 @@ COLORS = {
     "frame_bg": "#e3f2fd",  # Latar belakang frame/tab
 }
 
+# Fungsi Motivational Quote Generator
+def show_quote():
+    quotes = [
+        "Jangan menyerah, keajaiban terjadi setiap hari.",
+        "Kesuksesan adalah hasil dari persiapan, kerja keras, dan belajar dari kegagalan.",
+        "Hari ini adalah kesempatan untuk lebih baik dari kemarin.",
+        "Percayalah pada proses dan dirimu sendiri."
+    ]
+    random_quote.set(random.choice(quotes))
+
 # Membuat jendela utama
 root = tk.Tk()
 root.title("Student Productivity Toolkit")
@@ -25,5 +35,12 @@ root.configure(bg=COLORS["bg"])
 # Tab dengan ttk.Notebook
 menu = ttk.Notebook(root)
 menu.pack(expand=1, fill="both")
+
+# Motivational Quote Generator
+random_quote = StringVar()
+quote_label = ttk.Label(root, textvariable=random_quote, wraplength=400, justify="center", foreground=COLORS["label_fg"])
+quote_label.pack(pady=10)
+quote_button = tk.Button(root, text="Tampilkan Motivasi", bg=COLORS["btn_bg"], fg=COLORS["btn_fg"], command=show_quote)
+quote_button.pack(pady=5)
 
 root.mainloop()
