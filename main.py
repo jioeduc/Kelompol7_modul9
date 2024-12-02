@@ -167,3 +167,29 @@ quote_button = tk.Button(root, text="Tampilkan Motivasi", bg=COLORS["btn_bg"], f
 quote_button.pack(pady=5)
 
 root.mainloop()
+
+# Fungsi Catatan Harian
+def save_note():
+    file_path = "catatan_harian.txt"
+    with open(file_path, "w") as file:
+        file.write(note_text.get("1.0", "end-1c"))
+    messagebox.showinfo("Notifikasi", f"Catatan disimpan ke {os.path.abspath(file_path)}")
+
+def load_notes():
+    try:
+        with open("catatan_harian.txt", "r") as file:
+            note_text.delete("1.0", "end")
+            note_text.insert("1.0", file.read())
+    except FileNotFoundError:
+        messagebox.showerror("Error", "Tidak ada catatan yang ditemukan!")
+
+# Frame Catatan Harian
+frame_notes = ttk.Frame(menu, style="Frame.TFrame")
+menu.add(frame_notes, text="Catatan Harian")
+
+note_text = Text(frame_notes, height=15, width=50, wrap="word", font=("Arial", 12), bg=COLORS["text_bg"], fg=COLORS["text_fg"], bd=2, relief="groove")
+note_text.pack(pady=10)
+save_button = tk.Button(frame_notes, text="Simpan Catatan", bg=COLORS["btn_bg"], fg=COLORS["btn_fg"], command=save_note)
+save_button.pack(pady=5)
+load_button = tk.Button(frame_notes, text="Baca Catatan", bg=COLORS["btn_bg"], fg=COLORS["btn_fg"], command=load_notes)
+load_button.pack(pady=5)
